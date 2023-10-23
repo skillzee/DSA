@@ -1,0 +1,1 @@
+    int res = fact(5);
