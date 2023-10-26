@@ -1,61 +1,81 @@
 #include<iostream>
-#include<vector>
-#include<algorithm>
 using namespace std;
 
 class Queue{
-    int front;
-    int back;
-    vector<int> v; 
+    int *arr;
+    int qfront;
+    int rear;
+    int size;
 
-public:
+    public:
     Queue(){
-        this->back = -1;
-        this->front = -1;
+        size = 100001;
+        arr = new int[size];
+        qfront = 0;
+        rear = 0;
     }
 
-    void enqueue(int data){
-        v.push_back(data);
-        back++;
-
-    }
-
-    void dequeue(){
-        if(front  == back){
-            front =-1;
-            back = -1;
+    void enque(int data){
+        if(rear == size){
+            cout<<"Queue is full";
         }
         else{
-            front++;
+            arr[rear] = data;
+            rear++;
         }
-
-
         
     }
+    
+    int dequeue(){
+        if(qfront == rear){
+            return -1;
+        }
+        else{
+            int ans = arr[qfront];
+            arr[qfront] = -1;
+            qfront++;
+            if(qfront == rear){
+                qfront = 0;
+                rear = 0;
+            }
+            return ans;
+        }
 
-    int getFront(){
-        if(front == -1) return -1;
-        return this->v[this->front];
     }
 
-    bool isEmpty(){
-        return this->front = -1;
+    int front(){
+        if(qfront == rear){
+            return -1;
+        }
+        else{
+            return arr[qfront];
+        }
     }
+
+    bool empty(){
+        if(qfront == rear){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 };
+
 int main()
 {
-     Queue qu;
-    qu.enqueue(10);
-    qu.enqueue(20);
-    qu.enqueue(30);
-    qu.dequeue();
-    qu.enqueue(40);
+    Queue q;
+    q.enque(3);
+    q.enque(4);
+    q.enque(5);
+    q.enque(6);
+    q.enque(7);
+    q.enque(8);
+    // q.dequeue();
+    cout<<q.front()<<endl;;
 
-    while(! qu.isEmpty()){
-        cout<<qu.getFront()<<" ";
-        qu.dequeue();
-    }
      
-    
     return 0;
 }
