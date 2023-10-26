@@ -8,13 +8,14 @@ void maxHeap(int arr[], int k, int size){
     int leftChild = 2*k+1;
     int rightChild = 2*k+2;
     if(arr[leftChild]>arr[val]){
-        swap(arr[leftChild], arr[k]);
+        val = rightChild;
     }
     if(arr[rightChild]>val){
-        swap(arr[rightChild], arr[k]);
+        val = rightChild;
     }
-    else{
-        return;
+    if(val!=k){
+        swap(arr[val],arr[k]);
+        maxHeap(arr, val, size);
     }
 
 }
